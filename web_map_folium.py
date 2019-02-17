@@ -21,8 +21,15 @@ def color_change(elev):
 # Create base map
 map = folium.Map(location=[37.296933,-121.9574983], zoom_start = 5, tiles = "CartoDB dark_matter")
 
+# Create Cluster
+marker_cluster = MarkerCluster().add_to(map)
+
 # multiple markers
 for lat, lon, elevation in zip(lat, lon, elevation):
-    folium.CircleMarker(location=[lat, lon], radius=9, popup=str(elevation)+" m", fill_color=color_change(elevation), color='gray', fill_opacity=0.9).add_to(map)
+    folium.CircleMarker(location=[lat, lon], 
+        radius=9, popup=str(elevation)+" m", 
+        fill_color=color_change(elevation),
+        color='gray', 
+        fill_opacity=0.9).add_to(marker_cluster)
 
 map.save(outfile='map1.html')
